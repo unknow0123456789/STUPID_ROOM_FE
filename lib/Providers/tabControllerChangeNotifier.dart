@@ -9,10 +9,13 @@ class TabControllerChangeNotifier extends ChangeNotifier
   TabControllerChangeNotifier(this.tabController)
   {
     tabController.addListener(() {
-      if(tabController.indexIsChanging)
-      {
-        notifyListeners();
-      }
+      // print("index: ${tabController.index}");
+      // if(tabController.indexIsChanging)
+      // {
+      //   print("index: ${tabController.index}");
+      //   notifyListeners();
+      // }
+      notifyListeners();
     });
   }
 }

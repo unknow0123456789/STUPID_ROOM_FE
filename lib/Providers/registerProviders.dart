@@ -1,12 +1,12 @@
 
 
+import 'package:fe/Base/ChosenTextStyle.dart';
 import 'package:fe/Http.dart';
 import 'package:fe/Models/SecureStorage.dart';
-import 'package:fe/Models/WrappedText.dart';
-import 'package:fe/Providers/client_changeNotifier.dart';
+import 'package:fe/Base/WrappedText.dart';
 import 'package:fe/Providers/counter_changeNotifier.dart';
 import 'package:fe/Providers/login_changeNotifier.dart';
-import 'package:fe/Screens/Client_page.dart';
+import 'package:fe/Screens/Client_Screens/Client_List_Screen/Client_List_Screen.dart';
 import 'package:fe/Screens/Login_screen.dart';
 import 'package:fe/Models/router.dart';
 import 'package:flutter/cupertino.dart';
@@ -69,13 +69,7 @@ final Provider<EasyRouter> routerProvider=Provider<EasyRouter>((ref){
                       data: "Client",
                       alterData:"Clt",
                       constraints: constraints,
-                      style: GoogleFonts.outfit(
-                        textStyle: const TextStyle(
-                          color: Colors.blue,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold
-                        )
-                      ),
+                      style: navigationBarDestinationTextStyle
                     );
                   },
                 ),
@@ -109,13 +103,7 @@ final Provider<EasyRouter> routerProvider=Provider<EasyRouter>((ref){
                         data: "Account",
                         alterData:"Acn",
                         constraints: constraints,
-                      style: GoogleFonts.outfit(
-                          textStyle: const TextStyle(
-                              color: Colors.blue,
-                              fontSize: 20,
-                            fontWeight: FontWeight.bold
-                          )
-                      ),
+                      style: navigationBarDestinationTextStyle
                     );
                   },
                 ),

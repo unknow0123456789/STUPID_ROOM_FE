@@ -30,6 +30,11 @@ class Stupid_Device
     }
   }
 
+  static Stupid_Device dump()
+  {
+    return Stupid_Device(clientId: -1,fields: [],measurementName: "",name: "",id: -1);
+  }
+
   Map<String,dynamic> toJson()=>{
     "id":id,
     "name":name,

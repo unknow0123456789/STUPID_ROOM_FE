@@ -9,9 +9,22 @@ class FormatedTextField extends ConsumerWidget
   final Function onChanged;
   final bool isPassword;
   final Function? onSubmitted;
+  final Color? fillColor;
+  final Color? inputColor;
+  final Color? labelColor;
 
 
-  const FormatedTextField({super.key, required this.label,required this.controller,this.onChanged=defaultfunc,this.isPassword=false,this.onSubmitted});
+  const FormatedTextField({
+    super.key,
+    required this.label,
+    required this.controller,
+    this.onChanged=defaultfunc,
+    this.isPassword=false,
+    this.onSubmitted,
+    this.fillColor,
+    this.inputColor,
+    this.labelColor
+  });
 
   static void defaultfunc(String value)
   {
@@ -37,8 +50,8 @@ class FormatedTextField extends ConsumerWidget
           label: Text(
             label,
             style: GoogleFonts.montserrat(
-                textStyle:const TextStyle(
-                    color: Colors.blueGrey,
+                textStyle:TextStyle(
+                    color: (labelColor!=null)?labelColor:Colors.blueGrey,
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
                     fontFamilyFallback: ['Arial'],
@@ -65,11 +78,13 @@ class FormatedTextField extends ConsumerWidget
                   color: Colors.red,
                   width: 3
               )
-          )
+          ),
+          fillColor: (fillColor!=null)?fillColor:Colors.transparent,
+          filled: true,
         ),
         style: GoogleFonts.montserrat(
           textStyle:TextStyle(
-            color: Colors.blue,
+            color: (inputColor!=null)?inputColor:Colors.blue,
             fontSize: 15,
             fontWeight: (!isPassword) ? FontWeight.w400:FontWeight.bold,
             fontFamilyFallback: const ['Arial'],

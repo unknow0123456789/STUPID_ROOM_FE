@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fe/Base/ChosenTextStyle.dart';
 import 'package:fe/Base/FormatedTextField.dart';
 import 'package:fe/Base/ImageButton.dart';
 import 'package:fe/Models/Stupid_Token.dart';
@@ -587,14 +588,7 @@ class _loginButton extends ConsumerWidget
                   children: [
                     Text(
                         data,
-                      style: GoogleFonts.montserrat(
-                        textStyle: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontFamilyFallback: ['Arial'],
-                        )
-                      ),
+                      style: loginButtonTextStyle
                     ),
                   ],
                 ),
