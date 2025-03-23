@@ -92,6 +92,21 @@ class HttpApi
     return response;
   }
 
+  Future<Response> getDeviceData(StupidToken stupidToken,int deviceId,int timeRange,String timeUnitLetter, List<String> fields) async
+  {
+    String endpoint="/api/v1/device/data?device_id=$deviceId&range=$timeRange&time_unit_letter=$timeUnitLetter";
+    final uri=Uri.parse(baseUrl+endpoint);
+    final response= await post(
+        uri,
+        headers: {
+          "Authorization": "Bearer ${stupidToken.accessToken}",
+          "Content-Type": "application/json"
+        },
+      body: jsonEncode(fields)
+    );
+    return response;
+  }
+
 }
 
 // class DevHttpOverrides extends HttpOverrides {

@@ -10,6 +10,7 @@ import 'package:fe/Models/Stupid_Device.dart';
 import 'package:fe/Providers/customChecker_ChangeNotifier.dart';
 import 'package:fe/Providers/dataOptions_changeNotifier.dart';
 import 'package:fe/Providers/device_changeNotifier.dart';
+import 'package:fe/Providers/registerProviders.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -84,7 +85,13 @@ class _dataPickerPartialTab extends ConsumerWidget {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         try
         {
-          ref.read(deviceFieldsCheckerController).items=(ref.read(deviceController).focusedDevice!=null)?List.generate(ref.read(deviceController).focusedDevice!.fields.length, (index) => CustomCheckerItem(ref.read(deviceController).focusedDevice!.fields[index],true)):[];
+          ref.read(deviceFieldsCheckerController).items= (ref.read(deviceController).focusedDevice!=null)?
+          List.generate(
+              ref.read(deviceController).focusedDevice!.fields.length, (index) =>
+              CustomCheckerItem(ref.read(deviceController).focusedDevice!.fields[index],true)
+          )
+              :
+          [];
         }
         catch (e)
         {
@@ -187,7 +194,22 @@ class _dataPickerPartialTab extends ConsumerWidget {
                                               ),
                                               Padding(
                                                   padding: const EdgeInsets.symmetric(vertical: 10),
-                                                  child: _dataOptions((int a,String b,List<String>c){},dataOptionController,deviceController,deviceFieldsCheckerController)
+                                                  child: _dataOptions(
+                                                          (int timeRange,String timeUnitLetter,List<String>fields) async {
+                                                            if (ref.watch(deviceController).focusedDevice!=null && ref.watch(deviceController).focusedDevice!.id!=null) {
+                                                              await ref.read(deviceController).getDeviceData(
+                                                                      ref.watch(loginController).userToken!,
+                                                                      ref.watch(deviceController).focusedDevice!.id!,
+                                                                      timeRange,
+                                                                      timeUnitLetter,
+                                                                      fields
+                                                              );
+                                                            }
+                                                          },
+                                                      dataOptionController,
+                                                      deviceController,
+                                                      deviceFieldsCheckerController
+                                                  )
                                               ),
                                             ],
                                           ),
@@ -298,8 +320,13 @@ class _dataOptions extends ConsumerWidget
           child: CustomButton(
               onTap: ()
               {
-                print("Range Value: ${rangeController.text}");
-                print("Fields Value: ${List.generate(ref.watch(deviceFieldsCheckerController).items.length, (index) => "Value: ${ref.watch(deviceFieldsCheckerController).items[index].value}, isCheck: ${ref.watch(deviceFieldsCheckerController).items[index].isCheck}")}");
+                // print("Range Value: ${rangeController.text}");
+                // print("Fields Value: ${List.generate(ref.watch(deviceFieldsCheckerController).items.length, (index) => "Value: ${ref.watch(deviceFieldsCheckerController).items[index].value}, isCheck: ${ref.watch(deviceFieldsCheckerController).items[index].isCheck}")}");
+                submit(
+                  int.parse(rangeController.text),
+                  ref.watch(dataOptionController).timeUnitList[ref.watch(dataOptionController).selectedTimeUnitIndex].value,
+                  (ref.watch(deviceFieldsCheckerController).getChecked()).map((e) => (e as CustomCheckerItem).value).toList()
+                );
               },
               borderRadius: BorderRadius.circular(15),
               child: Container(

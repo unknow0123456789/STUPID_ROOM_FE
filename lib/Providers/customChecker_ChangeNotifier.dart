@@ -1,4 +1,3 @@
-import 'package:fe/Base/CustomChecker.dart';
 import 'package:fe/Models/CustomCheckerItem.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -19,5 +18,10 @@ class CustomCheckerChangeNotifier extends ChangeNotifier
   set items(List value) {
     _items = value;
     notifyListeners();
+  }
+
+  List getChecked()
+  {
+    return (items.where((item)=>(item as CustomCheckerItem).isCheck)).toList();
   }
 }
